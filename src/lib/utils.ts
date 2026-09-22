@@ -1,6 +1,4 @@
-import pino from "pino";
-
-const logger = pino();
+import logger from "@/lib/logger";
 
 /**
  * Pause for a specified number of seconds.

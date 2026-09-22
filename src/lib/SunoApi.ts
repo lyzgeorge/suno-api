@@ -1,6 +1,6 @@
 import axios, { AxiosInstance } from 'axios';
 import UserAgent from 'user-agents';
-import pino from 'pino';
+import logger from '@/lib/logger';
 import { sleep } from '@/lib/utils';
 import * as cookie from 'cookie';
 import { randomUUID } from 'node:crypto';
@@ -10,7 +10,6 @@ const globalForSunoApi = global as unknown as { sunoApiCache?: Map<string, SunoA
 const cache = globalForSunoApi.sunoApiCache || new Map<string, SunoApi>();
 globalForSunoApi.sunoApiCache = cache;
 
-const logger = pino();
 export const DEFAULT_MODEL = 'chirp-v3-5';
 
 export interface AudioInfo {
