@@ -38,7 +38,7 @@ We have deployed an example bound to a free Suno account, so it has daily usage 
 
 - Perfectly implements the creation API from suno.ai.
 - Automatically keep the account active.
-- Solve CAPTCHAs automatically using [2Captcha](https://2captcha.com) and [Playwright](https://playwright.dev) with [rebrowser-patches](https://github.com/rebrowser/rebrowser-patches).
+- Solve CAPTCHAs automatically using [2Captcha](https://2captcha.com) and [Playwright](https://playwright.dev) with [rebrowser-patches](https://github.com/rebrowser/rebrowser-patches). *(removed — see the note under [Configure suno-api](#4-configure-suno-api))*
 - Compatible with the format of OpenAI’s `/v1/chat/completions` API.
 - Supports Custom Mode.
 - One-click deployment to [Vercel](#deploy-to-vercel) & [Docker](#docker).
@@ -102,19 +102,14 @@ docker compose build && docker compose up
 - If you’re running this locally, be sure to add the following to your `.env` file:
 #### Environment variables
 - `SUNO_COOKIE` — the `Cookie` header you obtained in the first step.
-- `TWOCAPTCHA_KEY` — your 2Captcha API key from the second step.
-- `BROWSER` — the name of the browser that is going to be used to solve the CAPTCHA. Only `chromium` and `firefox` supported.
-- `BROWSER_GHOST_CURSOR` — use ghost-cursor-playwright to simulate smooth mouse movements. Please note that it doesn't seem to make any difference in the rate of CAPTCHAs, so you can set it to `false`. Retained for future testing.
-- `BROWSER_LOCALE` — the language of the browser. Using either `en` or `ru` is recommended, since those have the most workers on 2Captcha. [List of supported languages](https://2captcha.com/2captcha-api#language)
-- `BROWSER_HEADLESS` — run the browser without the window. You probably want to set this to `true`.
 ```bash
 SUNO_COOKIE=<…>
-TWOCAPTCHA_KEY=<…>
-BROWSER=chromium
-BROWSER_GHOST_CURSOR=false
-BROWSER_LOCALE=en
-BROWSER_HEADLESS=true
 ```
+
+> [!IMPORTANT]
+> Automatic CAPTCHA solving has been removed so that this project can be deployed to
+> environments without a browser runtime (such as Cloudflare Workers). When Suno requires
+> a CAPTCHA for a generation request, that request will fail with an explanatory error.
 
 ### 5. Run suno-api
 
